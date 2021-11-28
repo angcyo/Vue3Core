@@ -6,12 +6,15 @@
  * @date 2021/11/27
  */
 
+//js
 import './vite'
 import './livedata'
 import Util from './util/util'
 import {version} from 'vue'
 
+//css
 import './css/base.scss'
+import './css/vue.scss'
 
 /**日志方法*/
 window.log = function () {

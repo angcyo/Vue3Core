@@ -52,3 +52,21 @@ deactivated|onDeactivated
 ## 单文件组件 `<script setup>`
 
 https://v3.cn.vuejs.org/api/sfc-script-setup.html#%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6-script-setup
+
+
+## v-on (@)
+
+https://v3.cn.vuejs.org/api/directives.html#v-on
+
+### 修饰符：
+
+- .stop - 调用 event.stopPropagation()。
+- .prevent - 调用 event.preventDefault()。
+- .capture - 添加事件侦听器时使用 capture 模式。
+- .self - 只当事件是从侦听器绑定的元素本身触发时才触发回调。
+- .{keyAlias} - 仅当事件是从特定键触发时才触发回调。
+- .once - 只触发一次回调。
+- .left - 只当点击鼠标左键时触发。
+- .right - 只当点击鼠标右键时触发。
+- .middle - 只当点击鼠标中键时触发。
+- .passive - { passive: true } 模式添加侦听器
