@@ -88,3 +88,7 @@ export default {
   <Button />
 </template>
 ```
+
+# 图标
+
+https://youzan.github.io/vant/v3/#/zh-CN/icon
