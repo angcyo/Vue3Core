@@ -7,17 +7,35 @@
 import axiosStatic, {AxiosRequestConfig} from 'axios'
 import Util from '../util/util.js'
 
+//<editor-fold desc="拦截器">
+
 function initInterceptors(axios) {
   // 添加请求拦截器
   axios.interceptors.request.use(function (config) {
+    let requestTraceId = config.headers["requestTraceId"] || Util.uuid()
     // 在发送请求之前做些什么
-    log(`开始请求[${config.method}]:${config.url}`)
+    log(`开始请求:[${requestTraceId}][${config.method}]:${config.url}`)
 
-    config.headers.push(config.headers.join)
+    if (!config.headers["clientUuid"]) {
+      config.headers["clientUuid"] = window.uuid
+    }
+
+    if (!config.headers["requestTraceId"]) {
+      config.headers["requestTraceId"] = requestTraceId
+    }
+
+    if (!config.headers["clientType"]) {
+      config.headers["clientType"] = "web"
+    }
+
+    if (!config.headers["Authorization"] && http.token) {
+      config.headers["Authorization"] = http.token
+    }
 
     return config
   }, function (error) {
     // 对请求错误做些什么
+    log(`请求错误1:${error}`)
     return Promise.reject(error)
   })
 
@@ -25,19 +43,83 @@ function initInterceptors(axios) {
   axios.interceptors.response.use(function (response) {
     // 2xx 范围内的状态码都会触发该函数。
     // 对响应数据做点什么
+    let requestTraceId = response.config.headers["requestTraceId"]
+    log(`请求返回:[${requestTraceId}][${response.status}]:${_toJson(response.data)}`)
     return response
   }, function (error) {
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
+    log(`请求错误2:${error}`)
     return Promise.reject(error)
   })
 }
+
+//</editor-fold desc="拦截器">
+
+//<editor-fold desc="操作">
+
+/**包裹config[AxiosRequestConfig]*/
+function wrapCancelTokenConfig(configOrUrl) {
+  const CancelToken = axiosStatic.CancelToken
+  const source = CancelToken.source()
+
+  let config
+  if (Util.isString(configOrUrl)) {
+    config = {
+      cancelToken: source.token,
+      url: configOrUrl
+    }
+  } else {
+    config = {
+      cancelToken: source.token,
+      ...configOrUrl
+    }
+  }
+
+  return {
+    config,
+    source
+  }
+}
+
+function wrapConfig(configOrUrl) {
+  let config
+  if (Util.isString(configOrUrl)) {
+    config = {
+      url: configOrUrl
+    }
+  } else {
+    config = configOrUrl
+  }
+  return config
+}
+
+/**处理[AxiosResponse], 验证逻辑code码*/
+function handleResponseData(response, callback) {
+  const data = response.data
+  const code = data.code
+  if (code) {
+    if (code >= 200 && code < 300) {
+      //请求成功
+      callback?.(data, null)
+    } else {
+      callback?.(null, new Error(data.msg || data.message || `错误码:${code}`))
+    }
+  } else {
+    callback?.(response.data, null)
+  }
+}
+
+//</editor-fold desc="操作">
+
+//<editor-fold desc="对象">
 
 const createHttp = function () {
   /*-----------------属性-----------------*/
   this.baseUrl = ""
   this.uuid = ""
   this.axios = undefined
+  this.token = undefined
 
   /*-----------------方法-----------------*/
 
@@ -56,8 +138,7 @@ const createHttp = function () {
     //初始化客户端
     this.axios = axiosStatic.create({
       baseURL: baseUrl,
-      timeout: 1000,
-      headers: {'clientUuid': window.uuid},
+      timeout: 5000,
       ...config
     })
 
@@ -99,89 +180,80 @@ const createHttp = function () {
   /*-----------------仅获取数据方法-----------------*/
 
   /**[callback] 回调data和error*/
-  this.requestData = (config, callback) => {
-    const CancelToken = axiosStatic.CancelToken
-    const source = CancelToken.source()
-
-    let _config
-    if (Util.isString(config)) {
-      _config = {
-        url: config
-      }
-    } else {
-      _config = config
-    }
-
-    this.axios.request({
-      cancelToken: source.token,
-      ..._config
-    }).then(response => {
-      const data = response.data
-      const code = data.code
-      if (code) {
-        if (code >= 200 && code < 300) {
-          //请求成功
-          callback?.(data, null)
-        } else {
-          callback?.(null, new Error(data.msg || data.message || `错误码:${code}`))
-        }
-      } else {
-        callback?.(response.data, null)
-      }
+  this.requestData = (configOrUrl, callback) => {
+    const {config, source} = wrapCancelTokenConfig(configOrUrl)
+    this.axios.request(config).then(response => {
+      handleResponseData(response, callback)
     }).catch(error => {
       callback?.(null, error)
     })
-
     // 取消请求（message 参数是可选的）
     //source.cancel('Operation canceled by the user.');
     return source//可用于取消请求
   }
 
-  this.getData = (config, callback) => {
-    let _config
-    if (Util.isString(config)) {
-      _config = {
-        url: config
-      }
-    } else {
-      _config = config
-    }
+  this.getData = (configOrUrl, callback) => {
     return this.requestData({
       method: 'get',
-      ..._config
+      ...wrapConfig(configOrUrl)
     }, callback)
   }
 
-  this.postData = (config, callback) => {
-    let _config
-    if (Util.isString(config)) {
-      _config = {
-        url: config
-      }
-    } else {
-      _config = config
-    }
+  this.postData = (configOrUrl, callback) => {
     return this.requestData({
       method: 'post',
-      ..._config
+      ...wrapConfig(configOrUrl)
     }, callback)
   }
 
-  this.putData = (config, callback) => {
-    let _config
-    if (Util.isString(config)) {
-      _config = {
-        url: config
-      }
-    } else {
-      _config = config
-    }
+  this.putData = (configOrUrl, callback) => {
     return this.requestData({
       method: 'put',
-      ..._config
+      ...wrapConfig(configOrUrl)
     }, callback)
   }
+
+  /*-----------------可以获取[AxiosResponse]方法-----------------*/
+
+  /**[callback] 回调AxiosResponse和error*/
+  this.requestRes = (configOrUrl, callback) => {
+    const {config, source} = wrapCancelTokenConfig(configOrUrl)
+    this.axios.request(config,).then(response => {
+      callback?.(response, null)
+    }).catch(error => {
+      callback?.(null, error)
+    })
+    return source
+  }
+
+  this.getRes = (configOrUrl, callback) => {
+    return this.requestRes({
+      method: 'get',
+      ...wrapConfig(configOrUrl)
+    }, callback)
+  }
+
+  this.postRes = (configOrUrl, callback) => {
+    return this.requestRes({
+      method: 'post',
+      ...wrapConfig(configOrUrl)
+    }, callback)
+  }
+
+  this.putRes = (configOrUrl, callback) => {
+    return this.requestRes({
+      method: 'put',
+      ...wrapConfig(configOrUrl)
+    }, callback)
+  }
+
 }
+
+//</editor-fold desc="对象">
+
+//<editor-fold desc="实例">
 
 const http = new createHttp()
 export {http}
+
+//</editor-fold desc="实例">
