@@ -10,6 +10,7 @@
 import './vite'
 import './livedata'
 import './util/json'
+import './util/local'
 import Util from './util/util'
 import {version} from 'vue'
 
