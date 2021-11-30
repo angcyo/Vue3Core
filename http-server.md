@@ -4,9 +4,19 @@ http-server: a simple static HTTP server
 
 https://www.npmjs.com/package/http-server
 
+# 安装
+
 ```
 npm install --global http-server
 npm install http-server -g
+```
+
+# 启动
+
+在当前目录下启动服务
+
+```
+http-server -c-1 -p 999
 ```
 
 # Usage:

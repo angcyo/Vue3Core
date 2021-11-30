@@ -16,6 +16,9 @@ import {version} from 'vue'
 import './css/base.scss'
 import './css/vue.scss'
 
+//http
+export {http} from './axios/http'
+
 /**日志方法*/
 window.log = function () {
   if (isDebug) {
@@ -35,6 +38,7 @@ export default {
     log(`开始初始化[Vue3Core]: Vue ${version}`)
     // 挂在全局方法
     //app.config.globalProperties.$filters = dateTimeSub
-    log(app)
+    //log(app)
   }
 }
+
