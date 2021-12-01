@@ -49,7 +49,7 @@ function initInterceptors(axios) {
   }, function (error) {
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
-    log(`请求错误2:${error}`)
+    log(`请求错误2:${error}:${_toJson(error?.response?.data)}`)
     return Promise.reject(error)
   })
 }
@@ -101,7 +101,7 @@ function handleResponseData(response, callback) {
   if (code) {
     if (code >= 200 && code < 300) {
       //请求成功
-      callback?.(data, null)
+      callback?.(data.data, null)
     } else {
       callback?.(null, new Error(data.msg || data.message || `错误码:${code}`))
     }
@@ -112,7 +112,7 @@ function handleResponseData(response, callback) {
 
 /**处理[AxiosError], 获取接口返回的错误信息*/
 function handleResponseError(error, callback) {
-  const data = error?.response.data
+  const data = error?.response?.data
   let mss = data?.msg || data?.message || error?.response?.statusText || error.message || `错误码[${error?.response?.status}]`
   callback?.(null, new Error(mss))
 }

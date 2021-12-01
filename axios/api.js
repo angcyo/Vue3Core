@@ -10,6 +10,9 @@ function withToastCallback(data, error, callback) {
   if (error) {
     toastFail(error.msg || error.message || error)
   }
+  if (data) {
+    toastClear()
+  }
   callback?.(data, error)
 }
 

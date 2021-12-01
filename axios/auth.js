@@ -30,6 +30,7 @@ export default function useAuth() {
 
   /**登录*/
   const login = (data, callback) => {
+    toastLoading()
     api.postData({
       url: "/auth/login",
       data: {

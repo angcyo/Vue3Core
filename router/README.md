@@ -10,6 +10,12 @@ npm install vue-router@4
 
 https://next.router.vuejs.org/zh/guide/
 
+## 路由配置
+
+https://next.router.vuejs.org/zh/api/#routerecordraw
+
+https://next.router.vuejs.org/zh/guide/advanced/meta.html
+
 # API 参考
 
 https://next.router.vuejs.org/zh/api/
@@ -29,15 +35,15 @@ location / {
 ```js
 // 1. 定义路由组件.
 // 也可以从其他文件导入
-const Home = { template: '<div>Home</div>' }
-const About = { template: '<div>About</div>' }
+const Home = {template: '<div>Home</div>'}
+const About = {template: '<div>About</div>'}
 
 // 2. 定义一些路由
 // 每个路由都需要映射到一个组件。
 // 我们后面再讨论嵌套路由。
 const routes = [
-  { path: '/', component: Home },
-  { path: '/about', component: About },
+  {path: '/', component: Home},
+  {path: '/about', component: About},
 ]
 
 // 3. 创建路由实例并传递 `routes` 配置
@@ -58,6 +64,13 @@ app.use(router)
 app.mount('#app')
 
 // 现在，应用已经启动了！
+```
+
+https://next.router.vuejs.org/zh/api/#resolve
+
+```js
+//通过path, 查找指定的路由信息
+const l = router.resolve(to.path)
 ```
 
 ## 嵌套路由
@@ -94,3 +107,60 @@ router.hasRoute()：检查路由是否存在。
 router.getRoutes()：获取一个包含所有路由记录的数组。
 ```
 
+## 路由守卫
+
+```js
+//路由
+const router = Vue3Core.initRouter(app, {
+  routes: RouteConfig
+})
+
+router.beforeEach((to, from) => {
+  return true
+})
+```
+
+## 路由操作
+
+https://next.router.vuejs.org/zh/api/#replace-1
+
+```js
+back()
+:
+void
+    forward()
+:
+void
+    go(delta
+:
+number
+):
+void
+    push(to
+:
+RouteLocationRaw
+):
+Promise < NavigationFailure | void | undefined >
+replace(to
+:
+RouteLocationRaw
+):
+Promise < NavigationFailure | void | undefined >
+```
+
+```js
+// 这三种形式是等价的
+router.push('/users/posva#bio')
+router.push({path: '/users/posva', hash: '#bio'})
+router.push({name: 'users', params: {username: 'posva'}, hash: '#bio'})
+// 只改变 hash
+router.push({hash: '#bio'})
+// 只改变 query
+router.push({query: {page: '2'}})
+// 只改变 param
+router.push({params: {username: 'jolyne'}})
+
+router.push({hash: '#bio', replace: true})
+// 相当于
+router.replace({hash: '#bio'})
+```

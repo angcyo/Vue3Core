@@ -13,6 +13,7 @@ import './util/json'
 import './util/local'
 import './util/url'
 import './util/time'
+import './util/str'
 
 //库自动初始化, 需要npm安装对应的库
 import './livedata'
