@@ -25,6 +25,7 @@ import './lodash'
 import Util from './util/util'
 import {version} from 'vue'
 import vConsole from './vConsole'
+import Vant from './vant'
 
 //css
 import './css/base.scss'
@@ -56,6 +57,9 @@ const Vue3Core = {
     // 挂在全局方法
     //app.config.globalProperties.$filters = dateTimeSub
     //log(app)
+
+    //初始化
+    Vant.init(app)
 
     //console 初始化
     vConsole.init(app)

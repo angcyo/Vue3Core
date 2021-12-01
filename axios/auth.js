@@ -5,6 +5,8 @@
  * @date 2021/12/01
  */
 import {onMounted, ref} from "vue"
+import api from "./api"
+import {wrapObj} from "./http"
 
 /**创建一个图形验证码*/
 function createImageCodeUrl(type) {
@@ -26,6 +28,18 @@ export default function useAuth() {
     loginImageCodeUrlRef.value = createImageCodeUrl(2)
   }
 
+  /**登录*/
+  const login = (data, callback) => {
+    api.postData({
+      url: "/auth/login",
+      data: {
+        "clientType": "web",
+        "grantType": "password",
+        ...wrapObj(data)
+      }
+    }, callback)
+  }
+
   onMounted(() => {
     //首次刷新
     updateLoginImageCode()
@@ -33,6 +47,7 @@ export default function useAuth() {
 
   return {
     loginImageCodeUrlRef,
-    updateLoginImageCode
+    updateLoginImageCode,
+    login
   }
 }

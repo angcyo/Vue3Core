@@ -4,7 +4,7 @@
  * @date 2021/11/30
  */
 
-import axiosStatic, {AxiosRequestConfig} from 'axios'
+import axiosStatic from 'axios'
 import Util from '../util/util.js'
 
 //<editor-fold desc="拦截器">
@@ -110,6 +110,13 @@ function handleResponseData(response, callback) {
   }
 }
 
+/**处理[AxiosError], 获取接口返回的错误信息*/
+function handleResponseError(error, callback) {
+  const data = error?.response.data
+  let mss = data?.msg || data?.message || error?.response?.statusText || error.message || `错误码[${error?.response?.status}]`
+  callback?.(null, new Error(mss))
+}
+
 //</editor-fold desc="操作">
 
 //<editor-fold desc="对象">
@@ -135,10 +142,14 @@ const createHttp = function () {
 
     log(`Http初始化-> base:${baseUrl} 客户端唯一ID:${window.uuid}`)
 
+    //超时设置
+    const timeout = isDebug ? -1 : 10_000
+
     //初始化客户端
     this.axios = axiosStatic.create({
       baseURL: baseUrl,
-      timeout: 5000,
+      timeout: timeout,
+      timeoutErrorMessage: "请求超时",
       ...config
     })
 
@@ -179,13 +190,15 @@ const createHttp = function () {
 
   /*-----------------仅获取数据方法-----------------*/
 
+  /**请求配置[AxiosRequestConfig]*/
+
   /**[callback] 回调data和error*/
   this.requestData = (configOrUrl, callback) => {
     const {config, source} = wrapCancelTokenConfig(configOrUrl)
     this.axios.request(config).then(response => {
       handleResponseData(response, callback)
     }).catch(error => {
-      callback?.(null, error)
+      handleResponseError(error, callback)
     })
     // 取消请求（message 参数是可选的）
     //source.cancel('Operation canceled by the user.');
@@ -221,7 +234,7 @@ const createHttp = function () {
     this.axios.request(config,).then(response => {
       callback?.(response, null)
     }).catch(error => {
-      callback?.(null, error)
+      handleResponseError(error, callback)
     })
     return source
   }
@@ -254,6 +267,20 @@ const createHttp = function () {
 //<editor-fold desc="实例">
 
 const http = new createHttp()
-export {http}
+
+/**将字符串包裹成对象*/
+const wrapObj = (strOrObj) => {
+  let obj
+  if (Util.isString(strOrObj)) {
+    obj = {
+      strOrObj
+    }
+  } else {
+    obj = strOrObj
+  }
+  return obj
+}
+
+export {http, wrapObj}
 
 //</editor-fold desc="实例">
