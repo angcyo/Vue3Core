@@ -53,7 +53,6 @@ deactivated|onDeactivated
 
 https://v3.cn.vuejs.org/api/sfc-script-setup.html#%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6-script-setup
 
-
 ## v-on (@)
 
 https://v3.cn.vuejs.org/api/directives.html#v-on
@@ -70,3 +69,37 @@ https://v3.cn.vuejs.org/api/directives.html#v-on
 - .right - 只当点击鼠标右键时触发。
 - .middle - 只当点击鼠标中键时触发。
 - .passive - { passive: true } 模式添加侦听器
+
+
+# main.js
+
+示例
+
+```js
+import {createApp} from 'vue'
+import App from './App.vue'
+import Vue3Core from '../Vue3Core'
+import RouteConfig from './route.config'
+
+const app = createApp(App)
+
+//核心库
+Vue3Core.init(app)
+
+//路由
+const router = Vue3Core.initRouter(app, {
+  routes: RouteConfig
+})
+
+router.beforeEach((to, from) => {
+  return true
+})
+
+//网络初始化
+//Vue3Core.initHttp("http://dev.spmt.fun:9203/")
+Vue3Core.initHttp("http://localhost:9203/")
+
+//安装
+app.mount('#app')
+
+```

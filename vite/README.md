@@ -25,3 +25,15 @@ npm init vite@latest
 ## `index.html` 与项目根目录
 
 https://cn.vitejs.dev/guide/#index-html-and-project-root
+
+# 配置 
+
+https://vitejs.cn/config/#server-host
+
+```
+export default defineConfig({
+  server: {
+    host: true, //开启监听所有地址
+  },
+})
+```

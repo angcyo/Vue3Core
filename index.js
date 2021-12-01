@@ -7,19 +7,34 @@
  */
 
 //js
-import './vite'
-import './livedata'
+
+//原生自动初始化
 import './util/json'
 import './util/local'
+import './util/url'
+import './util/time'
+
+//库自动初始化, 需要npm安装对应的库
+import './livedata'
+import './vite'
+import './vant'
+import './dayjs'
+import './lodash'
+
+//模块引用
 import Util from './util/util'
 import {version} from 'vue'
+import vConsole from './vConsole'
 
 //css
 import './css/base.scss'
 import './css/vue.scss'
 
 //http
-export {http} from './axios/http'
+import {http} from './axios/http'
+
+//router
+import {createRouter, createWebHashHistory} from 'vue-router'
 
 /**日志方法*/
 window.log = function () {
@@ -32,15 +47,45 @@ window.log = function () {
   }
 }
 
-export default {
+const Vue3Core = {
 
   /**请调用此方法初始化
-   * [app] vue应用的实例,App<HostElement = any>*/
+   * [app] vue应用的实例,[App<HostElement = any>]*/
   init(app) {
     log(`开始初始化[Vue3Core]: Vue ${version}`)
     // 挂在全局方法
     //app.config.globalProperties.$filters = dateTimeSub
     //log(app)
+
+    //console 初始化
+    vConsole.init(app)
+  },
+
+  /**初始化路由
+   * [options] [RouterOptions]
+   * 返回[Router]*/
+  initRouter(app, options) {
+    const router = createRouter({
+      history: createWebHashHistory(),
+      //https://next.router.vuejs.org/zh/guide/advanced/scroll-behavior.html
+      scrollBehavior(to, from, savedPosition) {
+        // return 期望滚动到哪个的位置
+        // 始终滚动到顶部
+        return {top: 0}
+      },
+      ...options
+    })
+    app.use(router)
+    return router
+  },
+
+  /**初始化网络
+   * 返回[http]*/
+  initHttp(baseUrl, config) {
+    http.init(baseUrl, config)
+    return http
   }
 }
+
+export default Vue3Core
 

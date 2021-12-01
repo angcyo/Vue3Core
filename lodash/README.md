@@ -27,6 +27,10 @@ var curryN = require('lodash/fp/curryN');
 
 https://lodash.com/docs/4.17.15
 
+### 字符串API
+
+https://lodash.com/docs/4.17.15#camelCase
+
 ## 使用
 
 
