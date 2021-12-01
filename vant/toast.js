@@ -31,7 +31,7 @@ window.toastFail = function (options) {
 
 window.toastLoading = function (options) {
   return Toast.loading({
-    message: '加载中...',
+    message: '请稍后...',
     forbidClick: true,
     duration: 0,
     ...wrapObj(options)

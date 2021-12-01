@@ -23,14 +23,22 @@ export default function useAuth() {
   /**登录图形验证码url的响应对象*/
   const loginImageCodeUrlRef = ref()
 
+  /**注册时的图形验证码*/
+  const registerImageCodeUrlRef = ref()
+
   /**更新登录的验证码*/
   const updateLoginImageCode = () => {
     loginImageCodeUrlRef.value = createImageCodeUrl(2)
   }
+  const updateRegisterImageCode = () => {
+    registerImageCodeUrlRef.value = createImageCodeUrl(1)
+  }
 
   /**登录*/
   const login = (data, callback) => {
-    toastLoading()
+    toastLoading({
+      message: '正在登录...',
+    })
     api.postData({
       url: "/auth/login",
       data: {
@@ -41,14 +49,32 @@ export default function useAuth() {
     }, callback)
   }
 
+  /**注册*/
+  const register = (data, callback) => {
+    toastLoading({
+      message: '正在注册...',
+    })
+    api.postData({
+      url: "/auth/register",
+      data: {
+        "grantType": "password",
+        ...wrapObj(data)
+      }
+    }, callback)
+  }
+
   onMounted(() => {
     //首次刷新
     updateLoginImageCode()
+    updateRegisterImageCode()
   })
 
   return {
     loginImageCodeUrlRef,
+    registerImageCodeUrlRef,
     updateLoginImageCode,
-    login
+    updateRegisterImageCode,
+    login,
+    register,
   }
 }
