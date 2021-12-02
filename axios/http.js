@@ -28,8 +28,8 @@ function initInterceptors(axios) {
       config.headers["clientType"] = "web"
     }
 
-    if (!config.headers["Authorization"] && http.token) {
-      config.headers["Authorization"] = http.token
+    if (!config.headers["Authorization"]) {
+      config.headers["Authorization"] = http.token || local.token || session.token
     }
 
     return config
@@ -192,7 +192,9 @@ const createHttp = function () {
 
   /**请求配置[AxiosRequestConfig]*/
 
-  /**[callback] 回调data和error*/
+  /**
+   * [config] [AxiosRequestConfig]
+   * [callback] 回调data和error*/
   this.requestData = (configOrUrl, callback) => {
     const {config, source} = wrapCancelTokenConfig(configOrUrl)
     this.axios.request(config).then(response => {

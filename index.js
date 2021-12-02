@@ -11,6 +11,7 @@
 //原生自动初始化
 import './util/json'
 import './util/local'
+import './util/session'
 import './util/url'
 import './util/time'
 import './util/str'
@@ -29,8 +30,9 @@ import vConsole from './vConsole'
 import Vant from './vant'
 
 //css
-import './css/base.scss'
-import './css/vue.scss'
+import './css/base.css'
+import './css/flex.css'
+import './css/vue.css'
 
 //http
 import {http} from './axios/http'

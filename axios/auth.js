@@ -6,7 +6,7 @@
  */
 import {onMounted, ref} from "vue"
 import api from "./api"
-import {wrapObj} from "./http"
+import {http, wrapObj} from "./http"
 
 /**创建一个图形验证码*/
 function createImageCodeUrl(type) {
@@ -63,6 +63,21 @@ export default function useAuth() {
     }, callback)
   }
 
+  /**登出*/
+  const logout = (callback) => {
+    api.getData({
+      url: "/auth/logout"
+    }, (data, error) => {
+      if (data) {
+        //清除缓存
+        local.token = undefined
+        http.token = undefined
+        local.user = undefined
+      }
+      callback?.(data, error)
+    })
+  }
+
   onMounted(() => {
     //首次刷新
     updateLoginImageCode()
@@ -76,5 +91,6 @@ export default function useAuth() {
     updateRegisterImageCode,
     login,
     register,
+    logout,
   }
 }

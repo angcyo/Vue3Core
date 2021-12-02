@@ -1,34 +1,34 @@
 /**
- * https://developer.mozilla.org/zh-CN/docs/Web/API/Window/localStorage
+ * https://developer.mozilla.org/zh-CN/docs/Web/API/Window/sessionStorage
  *
  * https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy
  *
  * Email:angcyo@126.com
  * @author angcyo
- * @date 2021/11/30
+ * @date 2021/12/02
  */
 
-const localStorageHandler = {
+const sessionStorageHandler = {
   get: function (obj, prop) {
-    return _fromJson(localStorage.getItem(prop))
+    return _fromJson(sessionStorage.getItem(prop))
   },
   set: function (obj, prop, value) {
     if (value === null || value === undefined) {
       //清除
-      localStorage.removeItem(prop)
+      sessionStorage.removeItem(prop)
     } else {
-      localStorage.setItem(prop, _toJson(value))
+      sessionStorage.setItem(prop, _toJson(value))
     }
     return true
   },
   has: function (obj, prop) {
-    const item = localStorage.getItem(prop)
+    const item = sessionStorage.getItem(prop)
     return item != null || item !== undefined
   },
   deleteProperty: function (obj, prop) {
-    localStorage.removeItem(prop)
+    sessionStorage.removeItem(prop)
   },
 }
 
-/**[localStorage]代理*/
-window.local = new Proxy({}, localStorageHandler)
+/**[sessionStorage]代理*/
+window.session = new Proxy({}, sessionStorageHandler)

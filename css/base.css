@@ -1,0 +1,98 @@
+/**
+ * Email:angcyo@126.com
+ * @author angcyo
+ * @date 2021/11/28
+ */
+
+/**基础样式*/
+
+:root {
+    --x: 16px;
+    --xs: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.match-parent {
+    width: 100%;
+    height: 100%;
+}
+
+.p-x {
+    padding: var(--x);
+}
+
+.ph-x {
+    padding-left: var(--x);
+    padding-right: var(--x);
+}
+
+.pv-x {
+    padding-top: var(--x);
+    padding-bottom: var(--x);
+}
+
+.pl-x {
+    padding-left: var(--x);
+}
+
+.pt-x {
+    padding-top: var(--x);
+}
+
+.pt-xs {
+    padding-top: var(--xs);
+}
+
+.pr-x {
+    padding-right: var(--x);
+}
+
+.pb-x {
+    padding-bottom: var(--x);
+}
+
+.pb-xs {
+    padding-bottom: var(--xs);
+}
+
+.m-x {
+    margin: var(--x);
+}
+
+.mh-x {
+    margin-left: var(--x);
+    margin-right: var(--x);
+}
+
+.mv-x {
+    margin-top: var(--x);
+    margin-bottom: var(--x);
+}
+
+.ml-x {
+    margin-left: var(--x);
+}
+
+.mt-x {
+    margin-top: var(--x);
+}
+
+.mt-xs {
+    margin-top: var(--xs);
+}
+
+.mr-x {
+    margin-right: var(--x);
+}
+
+.mb-x {
+    margin-bottom: var(--x);
+}
+
+.mb-xs {
+    margin-bottom: var(--xs);
+}
