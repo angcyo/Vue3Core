@@ -15,6 +15,7 @@ import './util/session'
 import './util/url'
 import './util/time'
 import './util/str'
+import './vueEx'
 
 //库自动初始化, 需要npm安装对应的库
 import './livedata'
