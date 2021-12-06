@@ -9,6 +9,24 @@
 import {http} from "../axios/http"
 import Util from "./util"
 
+/** 从url中, 获取查询的参数
+ * ?qr=https://api.isoyu.com/ip_images.php&raw=https://api.isoyu.com/ip_images.php
+ *
+ * https://www.jianshu.com/p/708c915fb905
+ * */
+function getQueryVariable(variable) {
+  let query = window.location.search.substring(1)
+  let vars = query.split("&")
+  for (let i = 0; i < vars.length; i++) {
+    let pair = vars[i].split("=")
+    if (pair[0] === variable) {
+      return pair[1]
+    }
+  }
+  return undefined
+}
+
+/**[toUrl]*/
 function getQueryParam(queryParams) {
   let params = ''
   for (const key in queryParams) {
