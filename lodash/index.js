@@ -6,6 +6,10 @@
 
 import _ from 'lodash'
 
+window._cloneDeep = function (value) {
+  return _.cloneDeep(value)
+}
+
 //<editor-fold desc="字符串操作">
 
 /**https://lodash.com/docs/4.17.15#endsWith*/
