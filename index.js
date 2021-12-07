@@ -35,6 +35,7 @@ import Vant from './vant'
 //css
 import './css/base.css'
 import './css/flex.css'
+import './css/scrollbar.css'
 import './css/vue.css'
 
 //http
@@ -68,7 +69,7 @@ const Vue3Core = {
     Vant.init(app)
 
     //console 初始化
-    vConsole.init(app)
+    //vConsole.init(app)
   },
 
   /**初始化路由
