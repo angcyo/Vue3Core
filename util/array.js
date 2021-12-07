@@ -153,9 +153,20 @@ Array.prototype.updateBy = function (newItem, predicate) {
   })
 }
 
-/**清空数组所有数据*/
+/**清空数组所有数据
+ * 返回的是被删除的数据*/
 Array.prototype.clearAll = function () {
   return this.splice(0)
+}
+
+/**重置数组
+ * 返回的是被删除的数据*/
+Array.prototype.reset = function (newArray) {
+  if (Util.isArray(newArray)) {
+    return this.splice(0, this.length, ...newArray)
+  } else {
+    return this.splice(0, this.length, newArray)
+  }
 }
 
 /**使用JSON的方式, 拷贝数据. 深拷贝*/
