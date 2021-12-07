@@ -194,7 +194,8 @@ const createHttp = function () {
 
   /**
    * [config] [AxiosRequestConfig]
-   * [callback] 回调data和error*/
+   * [callback] 回调data和error
+   * 返回一个可以用来取消请求的对象[CancelTokenSource]*/
   this.requestData = (configOrUrl, callback) => {
     const {config, source} = wrapCancelTokenConfig(configOrUrl)
     this.axios.request(config).then(response => {

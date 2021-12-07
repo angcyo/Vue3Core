@@ -21,15 +21,18 @@
     height: 100%;
 }
 
+/**横竖填充 x大小*/
 .p-x {
     padding: var(--x);
 }
 
+/**横向填充 x大小*/
 .ph-x {
     padding-left: var(--x);
     padding-right: var(--x);
 }
 
+/**纵向填充 x大小*/
 .pv-x {
     padding-top: var(--x);
     padding-bottom: var(--x);
@@ -43,6 +46,7 @@
     padding-top: var(--x);
 }
 
+/**顶部填充 xs大小*/
 .pt-xs {
     padding-top: var(--xs);
 }

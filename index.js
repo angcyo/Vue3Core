@@ -12,9 +12,11 @@
 import './util/json'
 import './util/local'
 import './util/session'
+import './util/array'
 import './util/url'
 import './util/time'
 import './util/str'
+import './util/promise'
 import './vueEx'
 
 //库自动初始化, 需要npm安装对应的库
