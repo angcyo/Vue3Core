@@ -37,10 +37,20 @@
     padding-right: var(--x);
 }
 
+.ph-xs {
+    padding-left: var(--xs);
+    padding-right: var(--xs);
+}
+
 /**纵向填充 x大小*/
 .pv-x {
     padding-top: var(--x);
     padding-bottom: var(--x);
+}
+
+.pv-xs {
+    padding-top: var(--xs);
+    padding-bottom: var(--xs);
 }
 
 .pl-x {
@@ -77,9 +87,19 @@
     margin-right: var(--x);
 }
 
+.mh-xs {
+    margin-left: var(--xs);
+    margin-right: var(--xs);
+}
+
 .mv-x {
     margin-top: var(--x);
     margin-bottom: var(--x);
+}
+
+.mv-xs {
+    margin-top: var(--xs);
+    margin-bottom: var(--xs);
 }
 
 .ml-x {

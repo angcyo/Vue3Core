@@ -271,13 +271,13 @@ const createHttp = function () {
 
 const http = new createHttp()
 
-/**将字符串包裹成对象*/
-const wrapObj = (strOrObj) => {
+/**将字符串包裹成对象
+ * [key] 如果是字符串时, 可选的key*/
+const wrapObj = (strOrObj, key) => {
   let obj
   if (Util.isString(strOrObj)) {
-    obj = {
-      strOrObj
-    }
+    obj = {}
+    obj[key || strOrObj] = strOrObj
   } else {
     obj = strOrObj
   }
