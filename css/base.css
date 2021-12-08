@@ -167,3 +167,15 @@
     justify-content: center;
     align-items: center;
 }
+
+/**使得子控件平分剩余空间*/
+.gravity-space-around {
+    display: flex;
+    justify-content: space-around;
+}
+
+/**使得子控件两端对齐*/
+.gravity-space-between {
+    display: flex;
+    justify-content: space-between;
+}
