@@ -16,6 +16,11 @@
     padding: 0;
 }
 
+/**padding margin 算在width height 内*/
+.border-box {
+    box-sizing: border-box;
+}
+
 .match-parent {
     width: 100%;
     height: 100%;
@@ -99,4 +104,46 @@
 
 .mb-xs {
     margin-bottom: var(--xs);
+}
+
+/**-----------------*/
+
+/**需要滚动的内容样式*/
+.scroll-content {
+    box-sizing: border-box;
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+}
+
+/**帧布局*/
+.frame-layout {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/**子布局居中显示*/
+.frame-layout-center {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/**使得子控件居中显示*/
+.gravity-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

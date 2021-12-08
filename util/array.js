@@ -185,4 +185,36 @@ Array.prototype.have = function (predicate) {
   return find !== undefined
 }
 
+/**数组排序, 默认是降序返回[desc]
+ * [compareKey] 排序的字段, 可以是字符串(对象中的字段key值),和方法
+ * 返回 排序后的数组*/
+Array.prototype.sortBy = function (compareKey, desc) {
+  const _desc = desc || true
+
+  if (Util.isFunction(compareKey)) {
+    return this.sort(compareKey)
+  } else {
+    return this.sort((firstEl, secondEl) => {
+      if (_desc) {
+        //降序
+        return secondEl[compareKey] - firstEl[compareKey]
+      } else {
+        //升序
+        return firstEl[compareKey] - secondEl[compareKey]
+      }
+    })
+  }
+}
+
+/**在数组中的指定位置插入, 一个或多个数据*/
+Array.prototype.insetAt = function (index, items) {
+  if (Util.isArray(items)) {
+    this.splice(index, 0, ...items)
+  } else {
+    this.splice(index, 0, items)
+  }
+  return this
+}
+
+
 //</editor-fold desc="数组扩展操作">
