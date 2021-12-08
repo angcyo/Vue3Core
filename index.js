@@ -29,7 +29,6 @@ import './lodash'
 //模块引用
 import Util from './util/util'
 import {version} from 'vue'
-import vConsole from './vConsole'
 import Vant from './vant'
 
 //css
@@ -43,6 +42,9 @@ import {http} from './axios/http'
 
 //router
 import {createRouter, createWebHashHistory} from 'vue-router'
+
+//core
+import Core from "./core"
 
 /**日志方法*/
 window.log = function () {
@@ -65,6 +67,8 @@ const Vue3Core = {
     //app.config.globalProperties.$filters = dateTimeSub
     //log(app)
 
+    Core.app = app
+
     //初始化
     Vant.init(app)
 
@@ -86,6 +90,7 @@ const Vue3Core = {
       },
       ...options
     })
+    Core.router = router
     app.use(router)
     return router
   },
@@ -94,6 +99,7 @@ const Vue3Core = {
    * 返回[http]*/
   initHttp(baseUrl, config) {
     http.init(baseUrl, config)
+    Core.http = http
     return http
   }
 }
