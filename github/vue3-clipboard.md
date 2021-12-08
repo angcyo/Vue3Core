@@ -22,6 +22,8 @@ createApp(App).use(VueClipboard).mount('#app')
 
 ## 示例
 
+### 自动复制
+
 ```js
 <template>
   <input v-model="value" />
@@ -40,6 +42,8 @@ export default defineComponent({
 })
 </script>
 ```
+
+### 自动复制 + 提示回调
 
 ```js
 <template>
@@ -74,6 +78,8 @@ export default defineComponent({
 </script>
 
 ```
+
+### 手动复制
 
 ```js
 <template>

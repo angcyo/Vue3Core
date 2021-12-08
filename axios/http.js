@@ -144,13 +144,12 @@ const createHttp = function () {
 
     //超时设置
     const timeout = isDebug ? -1 : 10_000
-
     //初始化客户端
     this.axios = axiosStatic.create({
       baseURL: baseUrl,
       timeout: timeout,
       timeoutErrorMessage: "请求超时",
-      ...config
+      ...wrapObj(config)
     })
 
     //初始化拦截器
@@ -274,12 +273,20 @@ const http = new createHttp()
 /**将字符串包裹成对象
  * [key] 如果是字符串时, 可选的key*/
 const wrapObj = (strOrObj, key) => {
+  if (!strOrObj) {
+    return {}
+  }
+
   let obj
   if (Util.isString(strOrObj)) {
     obj = {}
     obj[key || strOrObj] = strOrObj
-  } else {
+  } else if (Util.isObject(strOrObj)) {
     obj = strOrObj
+  } else {
+    obj = {
+      strOrObj
+    }
   }
   return obj
 }

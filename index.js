@@ -57,6 +57,9 @@ window.log = function () {
   }
 }
 
+/**本地浏览器接口地址*/
+window.localHost = () => `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`
+
 const Vue3Core = {
 
   /**请调用此方法初始化
@@ -98,7 +101,11 @@ const Vue3Core = {
   /**初始化网络
    * 返回[http]*/
   initHttp(baseUrl, config) {
-    http.init(baseUrl, config)
+    if (Util.isObject(baseUrl)) {
+      http.init(localHost(), config)
+    } else {
+      http.init(baseUrl, config)
+    }
     Core.http = http
     return http
   }
