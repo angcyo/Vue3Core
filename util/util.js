@@ -159,6 +159,17 @@ Util.isNullOrEmpty = function (str) {
   return !str || str.length <= 0
 }
 
+/**判断对象是否为空*/
+window.isNullOrEmpty = function (obj) {
+  if (obj === undefined || obj === null) {
+    return true
+  } else if (Util.isString(obj) || Util.isArray(obj)) {
+    return obj.length === 0
+  } else {
+    return false
+  }
+}
+
 //</editor-fold desc="基础操作">
 
 export default Util

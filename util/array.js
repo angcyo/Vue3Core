@@ -216,5 +216,9 @@ Array.prototype.insetAt = function (index, items) {
   return this
 }
 
+/**数组是否包含数据*/
+Array.prototype.contains = function (item) {
+  return this.indexOf(item) !== -1
+}
 
 //</editor-fold desc="数组扩展操作">

@@ -136,6 +136,8 @@
     width: 100%;
 }
 
+/**------布局css------*/
+
 /**帧布局*/
 .frame-layout {
     position: absolute;
@@ -178,4 +180,22 @@
 .gravity-space-between {
     display: flex;
     justify-content: space-between;
+}
+
+/**------文本css------*/
+
+/**文本换行*/
+.text-wrap {
+    word-break: break-word;
+    word-wrap: break-word;
+}
+
+/**单行文本*/
+.text-single-line {
+    display: -webkit-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
 }
