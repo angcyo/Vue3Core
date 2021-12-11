@@ -17,6 +17,7 @@ import './util/url'
 import './util/time'
 import './util/str'
 import './util/promise'
+import './util/ua'
 import './vueEx'
 
 //库自动初始化, 需要npm安装对应的库
