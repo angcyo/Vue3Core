@@ -59,7 +59,14 @@ window.log = function () {
 }
 
 /**本地浏览器接口地址*/
-window.localHost = () => `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`
+window.localHost = () => {
+  const post = window.location.port
+  if (post) {
+    return `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`
+  } else {
+    `${window.location.protocol}//${window.location.hostname}/`
+  }
+}
 
 const Vue3Core = {
 
