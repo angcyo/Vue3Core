@@ -65,7 +65,7 @@ window.localHost = () => {
   if (post) {
     return `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
   } else {
-    `${window.location.protocol}//${window.location.hostname}`
+    return `${window.location.protocol}//${window.location.hostname}`
   }
 }
 
