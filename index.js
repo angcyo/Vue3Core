@@ -58,13 +58,14 @@ window.log = function () {
   }
 }
 
-/**本地浏览器接口地址*/
+/**本地浏览器接口地址
+ * 不以/结尾*/
 window.localHost = () => {
   const post = window.location.port
   if (post) {
-    return `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`
+    return `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
   } else {
-    `${window.location.protocol}//${window.location.hostname}/`
+    `${window.location.protocol}//${window.location.hostname}`
   }
 }
 

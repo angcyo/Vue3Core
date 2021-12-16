@@ -189,7 +189,10 @@ const createHttp = function () {
 
   /*-----------------仅获取数据方法-----------------*/
 
-  /**请求配置[AxiosRequestConfig]*/
+  /**请求配置[AxiosRequestConfig]
+   *   params?: any; //请求参数
+   *   data?: D; //请求体
+   * */
 
   /**
    * [config] [AxiosRequestConfig]
