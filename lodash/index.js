@@ -6,6 +6,7 @@
 
 import _ from 'lodash'
 
+/**深拷贝复制*/
 window._cloneDeep = function (value) {
   return _.cloneDeep(value)
 }

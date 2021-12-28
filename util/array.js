@@ -147,9 +147,12 @@ Array.prototype.updateBy = function (newItem, predicate) {
       updateIndexList.push(index)
     }
   })
-  updateIndexList.forEach(item => {
-    this[item] = newItem //全量赋值, VUE3中可以监听到
+  updateIndexList.forEach(indexItem => {
+    this[indexItem] = newItem //全量赋值, VUE3中可以监听到
     //this.replaceAt(item, newItem) //这样也可以
+    //2个方法都可以
+    //this[0] = item
+    //this.replaceAt(0, item)
   })
 }
 

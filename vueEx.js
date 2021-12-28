@@ -9,19 +9,36 @@
  * [UnwrapNestedRefs]
  * https://v3.cn.vuejs.org/api/basic-reactivity.html#reactive
  * */
+
 /*Object.prototype.refReset = function (data) {
   Object.assign(this, data)
 }*/
 
 import {isReactive, isRef} from "vue"
+import Util from "./util/util"
 
-window._refReset = function (ref, data) {
-  return Object.assign(ref, data)
+/**将[data]的属性, 分配给[ref]*/
+window.refSet = function (ref, data) {
+  if (Util.isArray(ref)) {
+    return ref.reset(data)
+  } else {
+    return Object.assign(ref, data)
+  }
+}
+
+/**先清空[ref], 再分配[data]*/
+window.refReset = function (ref, data) {
+  refClear(ref)
+  return refSet(ref, data)
 }
 
 /**清空ref对象内的数据*/
-window._refClear = function (ref) {
+window.refClear = function (ref) {
   if (isRef(ref) || isReactive(ref)) {
-    Object.keys(ref).forEach(key => (ref[key] = undefined))
+    if (Util.isArray(ref)) {
+      ref.clearAll()
+    } else {
+      Object.keys(ref).forEach(key => (ref[key] = undefined))
+    }
   }
 }
