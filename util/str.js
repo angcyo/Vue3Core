@@ -89,3 +89,13 @@ String.prototype.toBase64 = function () {
 String.prototype.fromBase64 = function () {
   return window.atob(this)
 }
+
+/** 字符串中是否包含另一个字符串 */
+String.prototype.contains = function (str) {
+  return this.indexOf(str) !== -1
+}
+
+/**支持正则*/
+String.prototype.have = function (str) {
+  return this.search(str) !== -1
+}

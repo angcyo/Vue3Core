@@ -24,6 +24,7 @@ import {wrapObj} from "../axios/http"
  *
  * 展示时长(ms)，值为 0 时，notify 不会消失
  * */
+
 window.notify = (options) => {
   return Notify(options)
 }
@@ -59,6 +60,13 @@ window.notifyWarning = (options) => {
     ...wrapObj(options, 'message')
   })
 }
+
+// 清除通知
+window.notifyClear = function () {
+  return Notify.clear()
+}
+
+
 
 
 
