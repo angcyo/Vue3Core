@@ -27,11 +27,22 @@ function withNotifyCallback(data, error, callback) {
   callback?.(data, error)
 }
 
+function isContainToast(configOrUrl) {
+  if (Util.isString(configOrUrl) && configOrUrl.toLowerCase().contains('toast')) {
+    return true
+  }
+  const url = configOrUrl.url
+  if (url && Util.isString(url) && url.toLowerCase().contains('toast')) {
+    return true
+  }
+  return false
+}
+
 export default {
 
   /**toast提示*/
   getData: (configOrUrl, callback) => {
-    const toast = Util.isString(configOrUrl) && configOrUrl.contains('toast')
+    const toast = isContainToast(configOrUrl)
     http.getData(configOrUrl, (data, error) => {
       if (toast) {
         withToastCallback(data, error, callback)
@@ -42,7 +53,7 @@ export default {
   },
 
   postData: (configOrUrl, callback) => {
-    const toast = Util.isString(configOrUrl) && configOrUrl.contains('toast')
+    const toast = isContainToast(configOrUrl)
     http.postData(configOrUrl, (data, error) => {
       if (toast) {
         withToastCallback(data, error, callback)
@@ -53,7 +64,7 @@ export default {
   },
 
   putData: (configOrUrl, callback) => {
-    const toast = Util.isString(configOrUrl) && configOrUrl.contains('toast')
+    const toast = isContainToast(configOrUrl)
     http.putData(configOrUrl, (data, error) => {
       if (toast) {
         withToastCallback(data, error, callback)

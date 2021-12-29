@@ -40,7 +40,7 @@ export default function useAuth() {
       message: '正在登录...',
     })
     api.postData({
-      url: "/auth/login",
+      url: "/auth/login?toast",
       data: {
         "clientType": "web",
         "grantType": "password",

@@ -125,27 +125,11 @@ router.beforeEach((to, from) => {
 https://next.router.vuejs.org/zh/api/#replace-1
 
 ```js
-back()
-:
-void
-    forward()
-:
-void
-    go(delta
-:
-number
-):
-void
-    push(to
-:
-RouteLocationRaw
-):
-Promise < NavigationFailure | void | undefined >
-replace(to
-:
-RouteLocationRaw
-):
-Promise < NavigationFailure | void | undefined >
+back(): void
+forward(): void
+go(delta:number): void
+push(to:RouteLocationRaw): Promise<NavigationFailure | void | undefined >
+replace(to:RouteLocationRaw): Promise<NavigationFailure | void | undefined >
 ```
 
 ```js
