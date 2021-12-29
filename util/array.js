@@ -1,4 +1,7 @@
 /**
+ * MDN 数组文档
+ * https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array
+ *
  * https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/@@iterator
  *
  * Email:angcyo@126.com
@@ -13,20 +16,20 @@ import Util from "./util"
 /**
  * 将数组`target`合并到`this`, 条件是`callbackfn`返回true
  * @param target 需要合并的数组
- * @param callbackfn 第一个参数是需要返回的数组, 第二个参数需要合并的数据
- * @return 新的数组
+ * @param callbackFn 第一个参数是需要返回的数组, 第二个参数需要合并的数据
+ * @return *[]
  * */
-Array.prototype.merge = function (target, callbackfn) {
+Array.prototype.merge = function (target, callbackFn) {
   let result = [...this]
   if (Util.isArray(target)) {
     target.forEach(item => {
-      if (callbackfn(result, item)) {
+      if (callbackFn(result, item)) {
         result.push(item)
       }
     })
   } else {
-    if (Util.isFunction(callbackfn)) {
-      if (callbackfn(result, target)) {
+    if (Util.isFunction(callbackFn)) {
+      if (callbackFn(result, target)) {
         result.push(target)
       }
     }
@@ -34,9 +37,7 @@ Array.prototype.merge = function (target, callbackfn) {
   return result
 }
 
-/**
- * 获取数组中的第一个元素
- * */
+/** 获取数组中的第一个元素 */
 Array.prototype.first = function (index = 0) {
   if (Util.isArray(this)) {
     if (this.length > index) {
@@ -48,9 +49,23 @@ Array.prototype.first = function (index = 0) {
   return this
 }
 
-/**
- * 获取数组中的最后一个元素
- * */
+/** 如果指定的元素不存储, 则获取第一个 */
+Array.prototype.firstIfNotExist = function (el, index = 0) {
+  if (Util.isArray(this)) {
+    if (this.indexOf(el) !== -1) {
+      //找到了元素
+      return el
+    }
+    if (this.length > index) {
+      return this[index]
+    } else {
+      return undefined
+    }
+  }
+  return this
+}
+
+/** 获取数组中的最后一个元素 */
 Array.prototype.last = function () {
   if (Util.isArray(this)) {
     if (this.length > 0) {
@@ -68,7 +83,7 @@ Array.prototype.last = function () {
  * */
 Array.prototype.eachRun = function (run) {
   if (Util.isObject(run) && run.run) {
-    var index = 0
+    let index = 0
 
     let array = this
     let count = array.length
