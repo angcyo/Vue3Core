@@ -106,6 +106,10 @@
     margin-left: var(--x);
 }
 
+.ml-xs {
+    margin-left: var(--xs);
+}
+
 .mt-x {
     margin-top: var(--x);
 }
@@ -168,6 +172,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/**所有子标签, 垂直方向居中*/
+.gravity-vertical-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    align-content: center;
+}
+
+/**所有子标签, 水平方向居中*/
+.gravity-horizontal-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    align-content: center;
 }
 
 /**使得子控件平分剩余空间*/

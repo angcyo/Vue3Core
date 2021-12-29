@@ -170,6 +170,13 @@ window.isNullOrEmpty = function (obj) {
   }
 }
 
+/**延迟执行
+ * [timeout] 毫秒*/
+window.delay = function (timeout, handler) {
+  //clearTimeout()
+  return setTimeout(handler, timeout)
+}
+
 //</editor-fold desc="基础操作">
 
 export default Util
