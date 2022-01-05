@@ -131,6 +131,10 @@
     margin-right: var(--x);
 }
 
+.mr-xs {
+    margin-right: var(--xs);
+}
+
 .mb-x {
     margin-bottom: var(--x);
 }
