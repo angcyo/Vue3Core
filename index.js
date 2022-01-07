@@ -82,9 +82,6 @@ const Vue3Core = {
 
     Core.app = app
 
-    //初始化
-    Vant.init(app)
-
     //console 初始化
     //vConsole.init(app)
   },
