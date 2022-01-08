@@ -31,7 +31,6 @@ import './lodash'
 //模块引用
 import Util from './util/util'
 import {version} from 'vue'
-import Vant from './vant'
 
 //css
 import './css/base.css'
@@ -43,7 +42,7 @@ import './css/vue.css'
 import {http} from './axios/http'
 
 //router
-import {createRouter, createWebHashHistory} from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 
 //core
 import Core from "./core"
@@ -91,7 +90,9 @@ const Vue3Core = {
    * 返回[Router]*/
   initRouter(app, options) {
     const router = createRouter({
-      history: createWebHashHistory(),
+      //路由模式
+      //https://next.router.vuejs.org/zh/api/#createwebhistory
+      history: createWebHistory(), //createWebHashHistory(),
       //https://next.router.vuejs.org/zh/guide/advanced/scroll-behavior.html
       scrollBehavior(to, from, savedPosition) {
         // return 期望滚动到哪个的位置
