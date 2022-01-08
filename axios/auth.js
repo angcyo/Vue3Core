@@ -55,7 +55,7 @@ export default function useAuth() {
       message: '正在注册...',
     })
     api.postData({
-      url: "/auth/register",
+      url: "/auth/register?toast",
       data: {
         "grantType": "password",
         ...wrapObj(data)
