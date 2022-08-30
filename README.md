@@ -103,3 +103,9 @@ Vue3Core.initHttp("http://localhost:9203/")
 app.mount('#app')
 
 ```
+
+# Other
+
+- [VueCore](https://github.com/angcyo/VueCore)
+- [Vue3Core](https://github.com/angcyo/Vue3Core)
+
