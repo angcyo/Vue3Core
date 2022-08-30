@@ -75,6 +75,10 @@ https://v3.cn.vuejs.org/api/directives.html#v-on
 
 # main.js
 
+```
+git clone git@github.com:angcyo/Vue3Core.git
+```
+
 示例
 
 ```js
