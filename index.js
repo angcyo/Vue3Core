@@ -24,9 +24,12 @@ import './vueEx'
 //库自动初始化, 需要npm安装对应的库
 import './livedata'
 import './vite'
-import './vant'
 import './dayjs'
 import './lodash'
+
+// UI按需导入
+// import './vant'
+// import './element'
 
 //模块引用
 import Util from './util/util'

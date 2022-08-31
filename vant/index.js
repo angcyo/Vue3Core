@@ -20,3 +20,9 @@ export default {
   }
 
 }
+
+/**
+ * ```main.js```
+ * import Vant from "../Vue3Core/vant"
+ * Vant.init(app)
+ * */

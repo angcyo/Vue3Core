@@ -7,12 +7,14 @@ import.meta.env.DEV: {boolean} 应用是否运行在开发环境 (永远与 impo
 
 /*
 console.log(import.meta.env)
+
 {
   "BASE_URL": "/",
-    "MODE": "development",
-    "DEV": true,
-    "PROD": false,
-    "SSR": false
+  "BASE_URL": "./",
+  "MODE": "development",
+  "DEV": true,
+  "PROD": false,
+  "SSR": false
 }*/
 
 /**是否是调试模式*/
