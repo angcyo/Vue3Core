@@ -115,3 +115,4 @@ app.mount('#app')
 - [VueCore](https://github.com/angcyo/VueCore)
 - [Vue3Core](https://github.com/angcyo/Vue3Core)
 
+- [phrase-vue-app](https://github.com/angcyo/phrase-vue-app)
